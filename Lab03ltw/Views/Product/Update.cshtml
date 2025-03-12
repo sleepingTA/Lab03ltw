@@ -39,11 +39,7 @@
                             </div>
 
                             <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <textarea asp-for="Description" class="form-control" style="height: 100px" placeholder="Enter product description" id="productDescription"></textarea>
-                                    <label asp-for="Description">Description</label>
-                                    <span asp-validation-for="Description" class="text-danger"></span>
-                                </div>
+                                
 
                                 <div class="mb-3">
                                     <label class="form-label fw-bold"><i class="fas fa-image me-2"></i>Product Image</label>
@@ -89,7 +85,7 @@
 @section Scripts {
     <script>
         $(document).ready(function() {
-            // Image preview
+    
             $("#productImage").change(function() {
                 const file = this.files[0];
                 if (file) {
@@ -101,11 +97,11 @@
                 }
             });
 
-            // Form submission with validation
+       
             $("#productForm").on("submit", function(e) {
                 let isValid = true;
 
-                // Name validation
+         
                 if ($("#productName").val() === "") {
                     isValid = false;
                     $("#productName").addClass("is-invalid");
@@ -113,7 +109,7 @@
                     $("#productName").removeClass("is-invalid").addClass("is-valid");
                 }
 
-                // Price validation
+         
                 if ($("#productPrice").val() === "" || parseFloat($("#productPrice").val()) <= 0) {
                     isValid = false;
                     $("#productPrice").addClass("is-invalid");
@@ -121,7 +117,7 @@
                     $("#productPrice").removeClass("is-invalid").addClass("is-valid");
                 }
 
-                // Category validation
+            
                 if ($("#productCategory").val() === "") {
                     isValid = false;
                     $("#productCategory").addClass("is-invalid");
@@ -130,11 +126,10 @@
                 }
 
                 if (isValid) {
-                    // Show loading spinner
+               
                     $("button[type='submit']").html('<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Updating product...');
                     $("button[type='submit']").prop("disabled", true);
 
-                    // Redirect after submission
                     setTimeout(function() {
                         window.location.href = "/Product/Index";
                     }, 1000);
