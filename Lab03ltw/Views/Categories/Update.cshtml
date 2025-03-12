@@ -1,0 +1,143 @@
+﻿@model Lab03ltw.Models.Category
+@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    ViewData["Title"] = "Edit Category";
+}
+
+<div class="category-form-container">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card border-0 shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0"><i class="fas fa-edit me-2"></i>Edit Category</h3>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Update" method="post" id="categoryForm">
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <div class="form-floating mb-3">
+                                    <input asp-for="Name" class="form-control" placeholder="Enter category name" id="categoryName" />
+                                    <label asp-for="Name">Category Name</label>
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+
+                           
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="/Categories/Index" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>Back to List
+                            </a>
+                            <div>
+                                <button type="reset" class="btn btn-outline-danger me-2">
+                                    <i class="fas fa-undo me-2"></i>Reset
+                                </button>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save me-2"></i>Update Category
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Form submission with validation
+            $("#categoryForm").on("submit", function(e) {
+                let isValid = true;
+
+                // Name validation
+                if ($("#categoryName").val() === "") {
+                    isValid = false;
+                    $("#categoryName").addClass("is-invalid");
+                } else {
+                    $("#categoryName").removeClass("is-invalid").addClass("is-valid");
+                }
+
+                // Description validation
+                if ($("#categoryDescription").val() === "") {
+                    isValid = false;
+                    $("#categoryDescription").addClass("is-invalid");
+                } else {
+                    $("#categoryDescription").removeClass("is-invalid").addClass("is-valid");
+                }
+
+                if (isValid) {
+                    // Show loading spinner
+                    $("button[type='submit']").html('<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Updating category...');
+                    $("button[type='submit']").prop("disabled", true);
+                } else {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+}
+
+<style>
+    .category-form-container {
+        padding: 2rem 0;
+    }
+
+    .form-floating > .form-control:focus ~ label,
+    .form-floating > .form-control:not(:placeholder-shown) ~ label {
+        color: #3498db;
+    }
+
+    .form-control:focus {
+        border-color: #3498db;
+        box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+    }
+
+    .btn-primary {
+        background-color: #3498db;
+        border-color: #3498db;
+        padding: 0.5rem 1.5rem;
+        transition: all 0.3s;
+    }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+    .btn-outline-secondary {
+        color: #6c757d;
+        border-color: #6c757d;
+        transition: all 0.3s;
+    }
+
+        .btn-outline-secondary:hover {
+            background-color: #6c757d;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .btn-outline-danger {
+        transition: all 0.3s;
+    }
+
+        .btn-outline-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(220, 53, 69, 0.2);
+        }
+
+    .card {
+        transition: all 0.3s;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+        }
+</style>
