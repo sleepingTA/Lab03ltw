@@ -37,6 +37,11 @@
                             </div>
 
                             <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <textarea asp-for="Description" class="form-control" style="height: 100px" placeholder="Enter product description" id="productDescription"></textarea>
+                                    <label asp-for="Description">Description</label>
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
 
                                 <div class="mb-3">
                                     <label class="form-label fw-bold"><i class="fas fa-image me-2"></i>Product Image</label>
@@ -66,125 +71,3 @@
         </div>
     </div>
 </div>
-
-@section Scripts {
-    <script>
-        $(document).ready(function() {
-         
-            $("#productImage").change(function() {
-                const file = this.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        $("#imagePreview").html(`<img src="${e.target.result}" class="img-fluid rounded" style="max-height: 150px;" />`);
-                    }
-                    reader.readAsDataURL(file);
-                } else {
-                    $("#imagePreview").html(`<p class="text-muted small">Preview will appear here</p>`);
-                }
-            });
-
-  
-            $("#productForm").on("submit", function(e) {
-                let isValid = true;
-
-        
-                if ($("#productName").val() === "") {
-                    isValid = false;
-                    $("#productName").addClass("is-invalid");
-                } else {
-                    $("#productName").removeClass("is-invalid").addClass("is-valid");
-                }
-
-                if ($("#productPrice").val() === "" || parseFloat($("#productPrice").val()) <= 0) {
-                    isValid = false;
-                    $("#productPrice").addClass("is-invalid");
-                } else {
-                    $("#productPrice").removeClass("is-invalid").addClass("is-valid");
-                }
-
-           
-                if ($("#productCategory").val() === "") {
-                    isValid = false;
-                    $("#productCategory").addClass("is-invalid");
-                } else {
-                    $("#productCategory").removeClass("is-invalid").addClass("is-valid");
-                }
-
-                if (isValid) {
-            
-                    $("button[type='submit']").html('<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Adding product...');
-                    $("button[type='submit']").prop("disabled", true);
-
-                
-                    setTimeout(function() {
-                        window.location.href = "/Product/Index";
-                    }, 1000);
-                } else {
-                    e.preventDefault();
-                }
-            });
-        });
-    </script>
-}
-
-<style>
-    .product-form-container {
-        padding: 2rem 0;
-    }
-
-    .form-floating > .form-control:focus ~ label,
-    .form-floating > .form-control:not(:placeholder-shown) ~ label {
-        color: #3498db;
-    }
-
-    .form-control:focus {
-        border-color: #3498db;
-        box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
-    }
-
-    .image-preview {
-        min-height: 100px;
-        border: 1px dashed #ccc;
-        border-radius: 5px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #f8f9fa;
-    }
-
-    .btn-primary {
-        background-color: #3498db;
-        border-color: #3498db;
-        padding: 0.5rem 1.5rem;
-        transition: all 0.3s;
-    }
-
-        .btn-primary:hover {
-            background-color: #2980b9;
-            border-color: #2980b9;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-    .btn-outline-secondary {
-        color: #6c757d;
-        border-color: #6c757d;
-        transition: all 0.3s;
-    }
-
-        .btn-outline-secondary:hover {
-            background-color: #6c757d;
-            color: white;
-            transform: translateY(-2px);
-        }
-
-    .card {
-        transition: all 0.3s;
-    }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
-        }
-</style>

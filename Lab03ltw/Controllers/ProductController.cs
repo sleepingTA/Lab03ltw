@@ -38,15 +38,14 @@ namespace Lab03ltw.Controllers
             {
                 if (imageUrl != null)
                 {
-                    // Lưu hình ảnh đại diện tham khảo bài 02 hàm SaveImage
-
+                    
                     product.ImageUrl = await SaveImage(imageUrl);
 
                 }
                 await _productRepository.AddAsync(product);
                 return RedirectToAction(nameof(Index));
             }
-            // Nếu ModelState không hợp lệ, hiển thị form với dữ liệu đã nhập
+        
             var categories = await _categoryRepository.GetAllAsync();
             ViewBag.Categories = new SelectList(categories, "Id", "Name");
             return View(product);
@@ -54,7 +53,7 @@ namespace Lab03ltw.Controllers
 
         private async Task<string> SaveImage(IFormFile image)
         {
-            //Thay đổi đường dẫn theo cấu hình của bạn
+
             var savePath = Path.Combine("wwwroot/images", image.FileName);
             using (var fileStream = new FileStream(savePath, FileMode.Create))
             {
